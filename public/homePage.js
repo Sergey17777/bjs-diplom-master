@@ -24,12 +24,11 @@ function ratesUpdate() {
         }
     });
 }
-setInterval(ratesUpdate(), 60000);
+setInterval(ratesUpdate, 60000);
 
 const pNt = new MoneyManager();
 pNt.addMoneyCallback = credit => ApiConnector.addMoney(credit, response => {
     if (response.success) {
-        pNt.addMoneyAction();
         ProfileWidget.showProfile(response.data);
         return pNt.setMessage(true, 'Успешное пополнение счета на' + credit.currency + credit.amount);;
     }
@@ -38,7 +37,6 @@ pNt.addMoneyCallback = credit => ApiConnector.addMoney(credit, response => {
 
 pNt.conversionMoneyCallback = exchange => ApiConnector.convertMoney(exchange, response => {
     if (response.success) {
-        pNt.conversionMoneyAction();
         ProfileWidget.showProfile(response.data);
         return pNt.setMessage(true, 'Успешная конвертация суммы ' + exchange.fromCurrency + exchange.fromAmount);
     }
@@ -47,7 +45,6 @@ pNt.conversionMoneyCallback = exchange => ApiConnector.convertMoney(exchange, re
 
 pNt.sendMoneyCallback = debit => ApiConnector.transferMoney(debit, response => {
     if (response.success) {
-        pNt.sendMoneyAction();
         ProfileWidget.showProfile(response.data);
         return pNt.setMessage(true, 'Успешный перевод ' + debit.currency + debit.amount + ' получателю ' + debit.to);
     }
