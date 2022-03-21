@@ -23,7 +23,7 @@ function ratesUpdate() {
             return;
         }
     });
-}
+} ratesUpdate();
 setInterval(ratesUpdate, 60000);
 
 const pNt = new MoneyManager();
